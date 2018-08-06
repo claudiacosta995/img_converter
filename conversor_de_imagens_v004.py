@@ -17,7 +17,7 @@ class ImageConverter():
     def parser(self):
         for img in os.listdir(self.entrada):
             name = re.search(r"(.+)(\.\w+)", img).group(1)
-            if self.check_image_with_pil(img):
+            if self.check_image_with_pil(self.entrada + "\\" + img):
                 self.convert_img(self.saida, name, self.entrada + "\\" + img)
                 print(self.saida + "\\" + img)
 
@@ -25,10 +25,8 @@ class ImageConverter():
     def convert_img(saida, nome_image, img_url):
 
         image = Image.open(img_url)
-        image.verify()
         original_size = image.size
 
-        aresta = 450
         if original_size[0] > original_size[1]:
             aresta = original_size[0]
         else:
