@@ -1,8 +1,10 @@
 import os
 from PIL import Image
 import msvcrt
+import re
+
 """
-As imagens são convertidas para o formato 450x450 ou para YYYxYYY caso a margem maior (YYY) da imagem seja maior que 450 
+As imagens são convertidas para o formato 450x450 ou para YYYxYYY caso a margem maior (YYY) da imagem seja maior que 450
 
 """
 
@@ -15,9 +17,10 @@ class ImageConverter():
 
     def parser(self):
         for img in os.listdir(self.entrada):
-            name = img.split(".jpg")[0]
-            self.convert_img(self.saida, name, self.entrada + "\\" + img)
-            print(self.saida + "\\" + img)
+            name = re.search("(.+)(\.\w+)", img).group(1)
+            print("{} +++++ {}".format(name, img))
+            # self.convert_img(self.saida, name, self.entrada + "\\" + img)
+            # print(self.saida + "\\" + img)
 
     @staticmethod
     def convert_img(saida, nome_image, img_url):
@@ -74,7 +77,7 @@ def get_keypress():
 
 # MAIN###################################################
 
-DIRETORIO_ENTRADA = r"C:\Users\Utilizador\Downloads"
+DIRETORIO_ENTRADA = r"C:\ProjetosPythonGit\img_converter\FOTOS ostopad"
 DIRETORIO_SAIDA = ""
 
 while True:
@@ -113,6 +116,8 @@ while True:
         exit()
     else:
         print("[X] Invalid file number input.")
+
+
 DIRETORIO_SAIDA = ".\\RESULTS_{}".format(file_input_name)
 if not os.path.isdir(DIRETORIO_SAIDA):
     os.mkdir(DIRETORIO_SAIDA)
