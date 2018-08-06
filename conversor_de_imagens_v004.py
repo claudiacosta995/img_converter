@@ -17,8 +17,9 @@ class ImageConverter():
     def parser(self):
         for img in os.listdir(self.entrada):
             name = re.search(r"(.+)(\.\w+)", img).group(1)
-            self.convert_img(self.saida, name, self.entrada + "\\" + img)
-            print(self.saida + "\\" + img)
+            if self.check_image_with_pil(img):
+                self.convert_img(self.saida, name, self.entrada + "\\" + img)
+                print(self.saida + "\\" + img)
 
     @staticmethod
     def convert_img(saida, nome_image, img_url):
@@ -44,6 +45,13 @@ class ImageConverter():
         )
         background.save('{}\\{}.jpeg'.format(saida, nome_image))
 
+    @staticmethod
+    def check_image_with_pil(path):
+        try:
+            Image.open(path)
+        except IOError:
+            return False
+        return True
 
 def get_keypress():
     '''INFO
@@ -69,7 +77,6 @@ def get_keypress():
 
     print(str(ans) + "...")
     return ans
-
 
 
 def main():
