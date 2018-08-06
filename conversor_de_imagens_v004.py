@@ -4,8 +4,7 @@ import msvcrt
 import re
 
 """
-As imagens são convertidas para o formato 450x450 ou para YYYxYYY caso a margem maior (YYY) da imagem seja maior que 450
-
+As imagens são convertidas para o formato 450x450 ou para YYYxYYY caso a margem maior (YYY) da imagem seja maior que 450.
 """
 
 
@@ -25,7 +24,7 @@ class ImageConverter():
     def convert_img(saida, nome_image, img_url):
 
         image = Image.open(img_url)
-
+        image.verify()
         original_size = image.size
 
         aresta = 450
