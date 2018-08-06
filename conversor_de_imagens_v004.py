@@ -4,8 +4,7 @@ import msvcrt
 import re
 
 """
-As imagens são convertidas para o formato 450x450 ou para YYYxYYY caso a margem maior (YYY) da imagem seja maior que 450
-
+As imagens são convertidas para o formato 450x450 ou para YYYxYYY caso a margem maior (YYY) da imagem seja maior que 450.
 """
 
 
@@ -18,15 +17,14 @@ class ImageConverter():
     def parser(self):
         for img in os.listdir(self.entrada):
             name = re.search(r"(.+)(\.\w+)", img).group(1)
-            if self.check_image_with_pil(img):
-                self.convert_img(self.saida, name, self.entrada + "\\" + img)
-                print(self.saida + "\\" + img)
+            self.convert_img(self.saida, name, self.entrada + "\\" + img)
+            print(self.saida + "\\" + img)
 
     @staticmethod
     def convert_img(saida, nome_image, img_url):
 
         image = Image.open(img_url)
-
+        image.verify()
         original_size = image.size
 
         aresta = 450
@@ -45,13 +43,6 @@ class ImageConverter():
             image, (int((size[0] - image.size[0]) / 2), int((size[1] - image.size[1]) / 2))
         )
         background.save('{}\\{}.jpeg'.format(saida, nome_image))
-    @staticmethod
-    def check_image_with_pil(path):
-        try:
-            Image.open(path)
-        except IOError:
-            return False
-        return True
 
 
 def get_keypress():
