@@ -17,7 +17,7 @@ class ImageConverter():
 
     def parser(self):
         for img in os.listdir(self.entrada):
-            name = re.search("(.+)(\.\w+)", img).group(1)
+            name = re.search(r"(.+)(\.\w+)", img).group(1)
             self.convert_img(self.saida, name, self.entrada + "\\" + img)
             print(self.saida + "\\" + img)
 
