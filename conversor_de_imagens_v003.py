@@ -74,51 +74,54 @@ def get_keypress():
     return ans
 
 
-# MAIN###################################################
 
-DIRETORIO_ENTRADA = r"C:\ProjetosPythonGit\img_converter\FOTOS ostopad"
-DIRETORIO_SAIDA = ""
+def main():
+    DIRETORIO_ENTRADA = r"C:\ProjetosPythonGit\img_converter\FOTOS ostopad"
+    DIRETORIO_SAIDA = ""
 
-while True:
-    print("Escolha a sua pasta.")
-    list_inicial = os.listdir()
-    list_of_files = []
+    while True:
+        print("Escolha a sua pasta.")
+        list_inicial = os.listdir()
+        list_of_files = []
 
-    for file in list_inicial:
-        var = os.path.isdir(file)
-        if os.path.isdir(file):
-            list_of_files.append(file)
+        for file in list_inicial:
+            var = os.path.isdir(file)
+            if os.path.isdir(file):
+                list_of_files.append(file)
 
-    for i in range(len(list_of_files)):
-        print("|\n|", str(i) + "\t" + str(list_of_files[i]))
-    else:
-        if not list_of_files: print("|\n|", " \t(No files available in current directory.)")
-        print("|\n| X \tExit")
-        print("|\n| R \tRefresh")
-    # GET KEYPRESS
-    print("\n[?] Select an option.")
-    ans = get_keypress()
-
-    # KEYPRESS HANDLE
-
-    # CHECK IF INT AND IN RANGE OF AVAILABLE INPUT FILES
-    if (isinstance(ans, int)) and ans in range(len(list_of_files)):
-        file_input_name = list_of_files[ans]
-        print("[i] Using: " + str(file_input_name))
-        DIRETORIO_ENTRADA = '.\\{}'.format(file_input_name)
-        print("Press ANYTHING to continue...")
+        for i in range(len(list_of_files)):
+            print("|\n|", str(i) + "\t" + str(list_of_files[i]))
+        else:
+            if not list_of_files: print("|\n|", " \t(No files available in current directory.)")
+            print("|\n| X \tExit")
+            print("|\n| R \tRefresh")
+        # GET KEYPRESS
+        print("\n[?] Select an option.")
         ans = get_keypress()
-        break
-    elif ans == 'r':  # REFRESH
-        pass
-    elif ans == 'x':  # CHECK IF EXIT
-        exit()
-    else:
-        print("[X] Invalid file number input.")
+
+        # KEYPRESS HANDLE
+
+        # CHECK IF INT AND IN RANGE OF AVAILABLE INPUT FILES
+        if (isinstance(ans, int)) and ans in range(len(list_of_files)):
+            file_input_name = list_of_files[ans]
+            print("[i] Using: " + str(file_input_name))
+            DIRETORIO_ENTRADA = '.\\{}'.format(file_input_name)
+            print("Press ANYTHING to continue...")
+            ans = get_keypress()
+            break
+        elif ans == 'r':  # REFRESH
+            pass
+        elif ans == 'x':  # CHECK IF EXIT
+            exit()
+        else:
+            print("[X] Invalid file number input.")
 
 
-DIRETORIO_SAIDA = ".\\RESULTS_{}".format(file_input_name)
-if not os.path.isdir(DIRETORIO_SAIDA):
-    os.mkdir(DIRETORIO_SAIDA)
+    DIRETORIO_SAIDA = ".\\RESULTS_{}".format(file_input_name)
+    if not os.path.isdir(DIRETORIO_SAIDA):
+        os.mkdir(DIRETORIO_SAIDA)
 
-qq = ImageConverter(DIRETORIO_ENTRADA, DIRETORIO_SAIDA)
+    qq = ImageConverter(DIRETORIO_ENTRADA, DIRETORIO_SAIDA)
+
+if __name__ == '__main__':
+    main()
